@@ -668,6 +668,7 @@ class ImageSizeGetter:
 
 
 NODE_CLASS_MAPPINGS = {
+    "MasksRLEToImage": MasksRLEToImage,
     "Base64ToImage": Base64ToImage,
     "LoadImageFromURL": LoadImageFromURL,
     "LoadMaskFromURL": LoadMaskFromURL,
@@ -687,6 +688,7 @@ NODE_CLASS_MAPPINGS = {
 
 # A dictionary that contains the friendly/humanly readable titles for the nodes
 NODE_DISPLAY_NAME_MAPPINGS = {
+    "MasksRLEToImage": "Masks RLE To Image",
     "Base64ToImage": "Base64 To Image",
     "LoadImageFromURL": "Load Image From Url",
     "LoadMaskFromURL": "Load Image From Url (As Mask)",
@@ -703,3 +705,4 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "SaveSingleImageWithoutOutput": "Save Single Image Without Output",
     "ImageSizeGetter": "Image Size Getter",
 }
+
