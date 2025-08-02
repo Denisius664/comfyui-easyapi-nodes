@@ -107,7 +107,7 @@ class SamAutoMaskSEGSAdvanced:
                                              "step": 1,
                                              "tooltip": "最小区域面积。 用于过滤(忽略)小区域"
                                          }),
-                "output_mode": (['uncompressed_rle', 'coco_rle'], {"default": "uncompressed_rle"}),
+                "output_mode": (['uncompressed_rle', 'coco_rle', 'binary_mask'], {"default": "binary_mask"}),
             },
         }
 

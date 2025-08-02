@@ -17,6 +17,48 @@ from json import JSONEncoder, JSONDecoder
 from .util import tensor_to_pil, pil_to_tensor, base64_to_image, image_to_base64, read_image_from_url, check_directory
 
 
+class MasksRLEToImage:
+    """
+    String from SamAutoMaskSEGSAdvanced to colored image
+    """
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "masks": ("MASK_RLE",),
+            }
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("colored_segmentation",)
+    FUNCTION = "process"
+    CATEGORY = "segmentation"
+
+    @staticmethod
+    def show_anns(anns):
+        if len(anns) == 0:
+            return None
+        sorted_anns = sorted(anns, key=(lambda x: x['area']), reverse=True)
+
+        h, w = anns[0]['segmentation'].shape
+
+        final_img = Image.fromarray(np.zeros((h, w, 3), dtype=np.uint8), mode="RGB")
+
+        for ann in sorted_anns:
+            m = ann['segmentation']
+            
+            img = np.empty((m.shape[0], m.shape[1], 3), dtype=np.uint8)
+            for i in range(3):
+                img[:,:,i] = np.random.randint(255, dtype=np.uint8)
+            
+            final_img.paste(Image.fromarray(img, mode="RGB"), (0, 0), Image.fromarray(np.uint8(m*255)))
+
+        return pil_to_tensor(np.array(final_img, dtype=np.uint8))
+
+    def process(self, masks):
+        return (self.show_anns(masks),)
+
+
 class LoadImageFromURL:
     """
     从远程地址读取图片
